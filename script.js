@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const colors = ["rod", "gronn", "svart", "gul", "hvit","brun", "lilla", "turkis", "rosa", "oranjse", "gull", "solv", "grå", "blå"];
+    const colors = ["rød", "grønn", "svart", "gul", "hvit","brun", "lilla", "turkis", "rosa", "oranjse", "gull", "solv", "grå", "blå"];
     const colorImages = {
-        "rod": "img/rojo.jpg",        // rojo
-        "gronn": "img/verde.jpg",      // verde
+        "rød": "img/rojo.jpg",        // rojo
+        "grønn": "img/verde.jpg",      // verde
         "svart": "img/negro.jpg",      // negro
         "gul": "img/amarillo.jpg",// amarillo
         "hvit": "img/blanco.jpg",    // blanco
