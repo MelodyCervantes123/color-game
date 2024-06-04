@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     let currentColor;
+    let lives = 3;  // Número de vidas inicial
     const colorImage = document.getElementById("color-image");
     const guessInput = document.getElementById("guess-input");
     const guessButton = document.getElementById("guess-button");
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const restartButton = document.getElementById("restart-button");
     const keyboardContainer = document.getElementById("keyboard-container");
     const clearButton = document.getElementById("clear-button");
+    const livesDiv = document.getElementById("lives");
 
     function getRandomColor(exclude) {
         let newColor;
@@ -46,9 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = "";
         messageDiv.classList.remove("success", "error");
         restartButton.style.display = "none";
-        
+        lives = 3;  // Reiniciar el número de vidas
+        updateLivesDisplay();
         guessInput.disabled = false;
         guessButton.disabled = false;
+        clearButton.disabled = false;
+        changeImageButton.disabled = false;
     }
 
     function changeImage() {
@@ -76,6 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
         guessInput.value = "";
     }
 
+    function updateLivesDisplay() {
+        livesDiv.textContent = `Vidas restantes: ${lives}`;
+    }
+
     guessButton.addEventListener("click", () => {
         const userGuess = guessInput.value.toLowerCase();
         if (userGuess === currentColor) {
@@ -88,9 +97,22 @@ document.addEventListener("DOMContentLoaded", () => {
             colorImage.src = "img/festejo.png";
             celebrate(); // Llamar a la función de celebración
         } else {
-            messageDiv.textContent = "¡Error! Intenta de nuevo.";
-            messageDiv.classList.remove("success");
-            messageDiv.classList.add("error");
+            lives--;  // Reducir el número de vidas
+            if (lives > 0) {
+                messageDiv.textContent = "¡Error! Intenta de nuevo.";
+                messageDiv.classList.remove("success");
+                messageDiv.classList.add("error");
+                updateLivesDisplay();  // Actualizar la visualización de las vidas
+            } else {
+                messageDiv.textContent = "¡Se acabaron las vidas! Has perdido.";
+                messageDiv.classList.remove("success");
+                messageDiv.classList.add("error");
+                guessInput.disabled = true;
+                guessButton.disabled = true;
+                changeImageButton.disabled = true;
+                clearButton.disabled = true;
+                restartButton.style.display = "block";
+            }
         }
     });
 
