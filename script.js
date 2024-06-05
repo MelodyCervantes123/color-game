@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const colors = ["rød", "grønn", "svart", "gul", "hvit","brun", "lilla", "turkis", "rosa", "oranjse", "gull", "solv", "grå", "blå"];
+    const colors = ["rød", "grønn", "svart", "gul", "hvit","brun", "lilla", "turkis", "rosa", "oransje", "gull", "sølv", "grå", "blå"];
     const colorImages = {
         "rød": "img/rojo.jpg",        // rojo
         "grønn": "img/verde.jpg",      // verde
@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "lilla": "img/morado.jpg",    // morado
         "turkis": "img/turquesa.jpg",// turquesa
         "rosa": "img/rosa.jpg",        // rosa
-        "oranjse": "img/naranja.jpg",  // naranja
+        "oransje": "img/naranja.jpg",  // naranja
         "gull": "img/dorado.jpg",    // dorado
-        "solv": "img/plateado.jpg", // plateado
+        "sølv": "img/plateado.jpg", // plateado
         "grå": "img/gris.jpg",    // gris
         "blå": "img/azul.jpg"    // azul
         
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const keyboardContainer = document.getElementById("keyboard-container");
     const clearButton = document.getElementById("clear-button");
     const livesDiv = document.getElementById("lives");
+    const backgroundMusic = document.getElementById('background-music');
 
     function getRandomColor(exclude) {
         let newColor;
@@ -136,4 +137,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Iniciar el juego por primera vez
     startGame();
+    // Intentar reproducir la música cuando la página se cargue
+    backgroundMusic.play().catch(function(error) {
+        console.log('La reproducción automática fue bloqueada. Reproducción manual requerida.');
+
+        // Mostrar el botón de reproducción manual
+        var playButton = document.createElement('button');
+        playButton.innerText = 'Iniciar Música';
+        playButton.style.position = 'absolute';
+        playButton.style.top = '10px';
+        playButton.style.left = '10px';
+        playButton.style.zIndex = '1000';
+        document.body.appendChild(playButton);
+
+        playButton.addEventListener('click', function() {
+            backgroundMusic.play();
+            playButton.remove();
+        });
+    });
 });
